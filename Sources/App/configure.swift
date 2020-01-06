@@ -5,16 +5,16 @@ import Vapor
 // configures your application
 public func configure(_ app: Application) throws {
     // uncomment to serve files from /Public folder
-    // app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
-
+    // app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory)
+    
     app.databases.use(.postgres(
-        hostname: "localhost",
-        username: "vapor",
-        password: "vapor",
-        database: "vapor"
+        hostname: DBConfig.default.hostname,
+        username: DBConfig.default.username,
+        password: DBConfig.default.password,
+        database: DBConfig.default.database
     ), as: .psql)
 
-    app.migrations.add(CreateTodo())
+    app.migrations.add(FileItem.Migration())
 
     // register routes
     try routes(app)
